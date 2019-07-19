@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <properties>
+        <Property name="console-pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] [%level] %logger{36} - %msg%n</Property>
+        <property name="error-file">logs</property>
+    </properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${console-pattern}" />
+        </Console>
+
+        <File name="FileAppender" fileName="${error-file}/logs.log" >
+            <PatternLayout pattern="${console-pattern}" />
+        </File>
+
+        <Async name="AsyncAppender">
+            <AppenderRef ref="FileAppender"/>
+        </Async>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console" />
+            <appenderRef ref="AsyncAppender" />
+        </Root>
+        <Logger name="COMMON" level="info" additivity="false">
+            <appenderRef ref="AsyncAppender" />
+        </Logger>
+    </Loggers>
+
+</Configuration>
